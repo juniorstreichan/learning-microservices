@@ -1,10 +1,7 @@
 package dev.juniorstreichan.core.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -29,7 +26,18 @@ public class AppUser implements AbstractEntity {
     private String username;
 
     @NotNull(message = "The field 'password' is mandatory")
+    @ToString.Exclude
     @Column(nullable = false)
     private String password;
 
+    @NotNull(message = "The field 'role' is mandatory")
+    @Column(nullable = false)
+    private String role = "USER";
+
+    public AppUser(@NotNull AppUser appUser) {
+        this.id = appUser.getId();
+        this.username = appUser.getUsername();
+        this.password = appUser.getPassword();
+        this.role = appUser.getRole();
+    }
 }

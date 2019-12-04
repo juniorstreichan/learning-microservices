@@ -21,6 +21,7 @@ public class JWTConfig {
     private String type = "encrypted";
 
     @Getter
+    @Setter
     public static class Header {
         private String name = "Authorization";
         private String prefix = "Bearer ";
