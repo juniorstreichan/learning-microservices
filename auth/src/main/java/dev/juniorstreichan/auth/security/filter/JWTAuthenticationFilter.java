@@ -71,6 +71,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         log.info("Authentication success for the user '{}', generating JWE token", auth.getName());
         var signedJWT = createSignedJWT(auth);
         var encryptToken = encryptToken(signedJWT);
+//        var encryptToken = signedJWT.serialize();
         log.info("Token generated successfully, adding it to the response header");
         response.addHeader("Access-Control-Expose-Headers", "XSRF-TOKEN, " + jwtConfig.getHeader().getName());
         response.addHeader(jwtConfig.getHeader().getName(), jwtConfig.getHeader().getPrefix() + encryptToken);
@@ -88,7 +89,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         var jwk = new RSAKey.Builder((RSAPublicKey) rsaKeys.getPublic()).keyID(UUID.randomUUID().toString()).build();
 
         var signedJWT = new SignedJWT(
-                new JWSHeader.Builder(JWSAlgorithm.ES256)
+                new JWSHeader.Builder(JWSAlgorithm.RS256)
                         .jwk(jwk)
                         .type(JOSEObjectType.JWT)
                         .build(),
@@ -133,7 +134,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private String encryptToken(SignedJWT signedJWT) throws JOSEException {
         log.info("Starting the encrypt token method");
-        var encrypter = new DirectEncrypter(jwtConfig.getPrivateKey().getBytes());
+        var directEncrypter = new DirectEncrypter(jwtConfig.getPrivateKey().getBytes());
 
         var jweObject = new JWEObject(
                 new JWEHeader.Builder(JWEAlgorithm.DIR, EncryptionMethod.A128CBC_HS256)
@@ -143,7 +144,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         );
         log.info("Encrypting token with system's private key");
 
-        jweObject.encrypt(encrypter);
+        jweObject.encrypt(directEncrypter);
 
         log.info("Token encrypted");
 
