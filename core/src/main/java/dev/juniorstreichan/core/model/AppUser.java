@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class AppUser implements AbstractEntity {
     @Id
     @GeneratedValue(generator = "app_user_generator")

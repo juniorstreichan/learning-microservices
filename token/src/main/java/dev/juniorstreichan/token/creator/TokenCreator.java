@@ -69,6 +69,7 @@ public class TokenCreator {
                                 .collect(Collectors.toList())
 
                 )
+                .claim("userId",appUser.getId())
                 .issuer("http://juniorstreichan.dev")
                 .issueTime(new Date())
                 .expirationTime(new Date(System.currentTimeMillis() + (jwtConfig.getExpiration() * 1000)))
