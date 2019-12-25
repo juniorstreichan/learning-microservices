@@ -1,4 +1,4 @@
-package dev.juniorstreichan.security.util;
+package dev.juniorstreichan.token.security.util;
 
 
 import com.nimbusds.jose.JOSEException;

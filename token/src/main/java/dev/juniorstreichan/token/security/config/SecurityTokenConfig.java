@@ -1,7 +1,6 @@
-package dev.juniorstreichan.security.config;
+package dev.juniorstreichan.token.security.config;
 
 import dev.juniorstreichan.core.property.JWTConfig;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

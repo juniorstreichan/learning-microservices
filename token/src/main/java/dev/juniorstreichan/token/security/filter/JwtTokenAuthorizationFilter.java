@@ -1,10 +1,10 @@
-package dev.juniorstreichan.security.filter;
+package dev.juniorstreichan.token.security.filter;
 
 
 import com.nimbusds.jwt.SignedJWT;
 import dev.juniorstreichan.core.property.JWTConfig;
-import dev.juniorstreichan.security.util.SecurityContextUtil;
 import dev.juniorstreichan.token.converter.TokenConverter;
+import dev.juniorstreichan.token.security.util.SecurityContextUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
