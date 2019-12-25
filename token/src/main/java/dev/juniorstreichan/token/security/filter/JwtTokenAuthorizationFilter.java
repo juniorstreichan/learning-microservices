@@ -21,8 +21,8 @@ import java.io.IOException;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class JwtTokenAuthorizationFilter extends OncePerRequestFilter {
 
-    private final JWTConfig jwtConfig;
-    private final TokenConverter tokenConverter;
+    protected final JWTConfig jwtConfig;
+    protected final TokenConverter tokenConverter;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -42,7 +42,7 @@ public class JwtTokenAuthorizationFilter extends OncePerRequestFilter {
     }
 
     @SneakyThrows
-    private SignedJWT decryptAndValidating(final String encryptedToken) {
+    protected SignedJWT decryptAndValidating(final String encryptedToken) {
         final var signedToken = tokenConverter.decryptToken(encryptedToken);
         tokenConverter.validateTokenSignature(signedToken);
 
@@ -50,7 +50,7 @@ public class JwtTokenAuthorizationFilter extends OncePerRequestFilter {
     }
 
     @SneakyThrows
-    private SignedJWT validate(final String signedToken) {
+    protected SignedJWT validate(final String signedToken) {
 
         tokenConverter.validateTokenSignature(signedToken);
 

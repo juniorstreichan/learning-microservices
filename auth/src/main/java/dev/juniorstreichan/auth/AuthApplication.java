@@ -10,9 +10,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EnableConfigurationProperties(value = JWTConfig.class)
 @EntityScan({"dev.juniorstreichan.core.model"})
 @EnableJpaRepositories({"dev.juniorstreichan.core.repository"})
+@EnableConfigurationProperties(value = JWTConfig.class)
 @ComponentScan("dev.juniorstreichan")
 @EnableEurekaClient
 public class AuthApplication {
