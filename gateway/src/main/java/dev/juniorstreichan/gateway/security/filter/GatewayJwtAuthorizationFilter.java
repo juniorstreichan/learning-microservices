@@ -1,8 +1,11 @@
 package dev.juniorstreichan.gateway.security.filter;
 
+import com.netflix.zuul.context.RequestContext;
+import com.nimbusds.jwt.SignedJWT;
 import dev.juniorstreichan.core.property.JWTConfig;
 import dev.juniorstreichan.token.converter.TokenConverter;
 import dev.juniorstreichan.token.security.filter.JwtTokenAuthorizationFilter;
+import dev.juniorstreichan.token.security.util.SecurityContextUtil;
 import lombok.SneakyThrows;
 
 import javax.servlet.FilterChain;
@@ -29,6 +32,14 @@ public class GatewayJwtAuthorizationFilter extends JwtTokenAuthorizationFilter {
         final var token = header.replace(jwtConfig.getHeader().getPrefix(), "").trim();
         final var signedToken = tokenConverter.decryptToken(token);
         tokenConverter.validateTokenSignature(signedToken);
+
+        SecurityContextUtil.setSecurityContext(SignedJWT.parse(signedToken));
+
+        if (jwtConfig.getType().equalsIgnoreCase("signed"))
+            RequestContext.getCurrentContext().addZuulRequestHeader(
+                jwtConfig.getHeader().getName(),
+                jwtConfig.getHeader().getPrefix() + signedToken
+            );
 
         filterChain.doFilter(request, response);
     }

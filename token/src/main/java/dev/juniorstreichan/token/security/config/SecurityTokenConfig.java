@@ -19,16 +19,16 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .cors().configurationSource(req -> new CorsConfiguration().applyPermitDefaultValues())
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .exceptionHandling().authenticationEntryPoint((req, res, ex) -> res.sendError(HttpServletResponse.SC_UNAUTHORIZED))
-                .and()
-                .authorizeRequests()
-                .antMatchers(jwtConfig.getLoginURL()).permitAll()
-                .antMatchers("/course/admin/**").hasRole("ADMIN")
+            .csrf().disable()
+            .cors().configurationSource(req -> new CorsConfiguration().applyPermitDefaultValues())
+            .and()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .exceptionHandling().authenticationEntryPoint((req, res, ex) -> res.sendError(HttpServletResponse.SC_UNAUTHORIZED))
+            .and()
+            .authorizeRequests()
+            .antMatchers(jwtConfig.getLoginURL()).permitAll()
+            .antMatchers("/course/v1/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
 
     }
