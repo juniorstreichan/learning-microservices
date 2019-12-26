@@ -1,28 +1,31 @@
 server:
-  port: 8083
+    port: 8083
 
 eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    service-url:
-      defaultZone: http://localhost:8081/eureka/
-    register-with-eureka: true
+    instance:
+        prefer-ip-address: true
+    client:
+        service-url:
+            defaultZone: http://localhost:8081/eureka/
+        register-with-eureka: true
 
 spring:
-  application:
-    name: auth
-  jpa:
-    show-sql: false
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-  jmx:
-    enabled: false
-  datasource:
-    url: jdbc:postgresql://localhost:5432/microservices
-    username: postgres
-    password: postgres
+    application:
+        name: auth
+    jpa:
+        show-sql: false
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+    jmx:
+        enabled: false
+    datasource:
+        url: jdbc:postgresql://localhost:5432/microservices
+        username: postgres
+        password: postgres
+jwt:
+    config:
+        type: signed
 

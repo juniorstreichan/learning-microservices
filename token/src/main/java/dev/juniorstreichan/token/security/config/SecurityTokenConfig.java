@@ -24,12 +24,16 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
-            .exceptionHandling().authenticationEntryPoint((req, res, ex) -> res.sendError(HttpServletResponse.SC_UNAUTHORIZED))
+            .exceptionHandling().authenticationEntryPoint((req, res, ex) -> {
+            System.out.println(ex.getLocalizedMessage());
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        })
             .and()
             .authorizeRequests()
             .antMatchers(jwtConfig.getLoginURL()).permitAll()
             .antMatchers("/course/v1/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated();
+            .antMatchers("/auth/user/**").hasAnyRole("ADMIN", "USER")
+            .anyRequest().authenticated();
 
     }
 

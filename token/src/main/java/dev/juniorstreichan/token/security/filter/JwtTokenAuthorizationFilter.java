@@ -25,6 +25,7 @@ public class JwtTokenAuthorizationFilter extends OncePerRequestFilter {
     protected final TokenConverter tokenConverter;
 
     @Override
+    @SuppressWarnings("Duplicates")
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         final var header = request.getHeader(jwtConfig.getHeader().getName());
 
